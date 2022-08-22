@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+    <style>
+        #mapa {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="mapa"></div>
+    
+    <script>
+        var mapOptions = {
+            center: [-36.6042018281908, -72.11068405342624],
+            zoom: 13
+        }
+    
+        var map = new L.map('mapa', mapOptions);
+        var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+        map.addLayer(layer);
+
+        var LeafIcon = L.Icon.extend({
+            options: {
+                iconSize:     [50, 50],
+                shadowSize:   [50, 64],
+                iconAnchor:   [50, 50],
+                shadowAnchor: [4, 62],
+                popupAnchor:  [-24, -50]
+            }
+        });
+
+        var banioAzul = new LeafIcon({
+            iconUrl: 'assets/bano-azul.png'
+        })
+
+        var banioGris = new LeafIcon({
+            iconUrl: 'assets/bano-gris.png'
+        })
+
+        var banioVerde = new LeafIcon({
+            iconUrl: 'assets/bano-verde.png'
+        })
+
+        var puntosObject = [
+            {
+                titulo: "Título 1",
+                lat: -36.61408837716857,
+                lng: -72.11980721379344,
+                icono: banioAzul
+            },
+            {
+                titulo: "Título 2",
+                lat: -36.60147978295954,
+                lng: -72.08774945286221,
+                icono: banioGris
+            },
+            {
+                titulo: "Título 3",
+                lat: -36.60275451591855,
+                lng: -72.12191006558143,
+                icono: banioVerde
+            },
+            {
+                titulo: "Título 4",
+                lat: -36.61984079404521,
+                lng: -72.08757779149175,
+                icono: banioAzul
+            },
+            {
+                titulo: "Título 5",
+                lat: -36.62580109751124,
+                lng: -72.09076013535851,
+                icono: banioGris
+            },
+            {
+                titulo: "Título 6",
+                lat: -36.59700937410173,
+                lng: -72.0916098157923,
+                icono: banioVerde
+            }
+        ]
+    
+        puntosObject.forEach((punto) => {
+            new L.marker([punto.lat, punto.lng], { icon: punto.icono }).bindPopup(punto.titulo).addTo(map)
+        })
+    
+        var marker = L.marker([-36.6042018281908, -72.11068405342624])
+            .addTo(map)
+            .bindPopup('Hola test', { closeOnClick: true, autoClose: true })
+    </script>
+</body>
+</html>
