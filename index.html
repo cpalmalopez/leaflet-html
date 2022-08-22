@@ -53,6 +53,20 @@
             iconUrl: 'assets/bano-verde.png'
         })
 
+        var latit = 0
+        var longit = 0
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                latit = position.coords.latitude
+                longit = position.coords.longitude
+
+                var abc = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map)
+
+                map.panTo(new L.LatLng(latit, longit))
+            })
+        }
+
         var puntosObject = [
             {
                 titulo: "Título 1",
@@ -96,9 +110,9 @@
             new L.marker([punto.lat, punto.lng], { icon: punto.icono }).bindPopup(punto.titulo).addTo(map)
         })
     
-        var marker = L.marker([-36.6042018281908, -72.11068405342624])
-            .addTo(map)
-            .bindPopup('Hola test', { closeOnClick: true, autoClose: true })
+        // var marker = L.marker([-36.6042018281908, -72.11068405342624])
+        //     .addTo(map)
+        //     .bindPopup('Hola test', { closeOnClick: true, autoClose: true })
     </script>
 </body>
 </html>
